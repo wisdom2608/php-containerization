@@ -16,7 +16,7 @@ The volumes' directives under the webserver **./:/var/www/html/**. Here the **./
 The ports directive is set to **80:80**. This means that port 80 on the localhost is mapped to port 80 on the container., which is where apache listens by default. However, You have the flexibibily to change the ports. For example if you want your webserver to listen to 8080, you can change the port directive to 8080:8080.
 
 We also need a database(mysql) service. For this, we use the latest mysql image from the dockerhub.
-The volumes's directive for the db service is **./db:/var/lib/mysql/**. This creats a name volume **db** which is stored in the docker managed portion of the host's file system. All database's data will be stored here ensuring that they persist even if the container is stopped or deleted.
+The volumes's directive for the db service is **./db_data:/docker-entrypoint-initdb.d**. This creats a name volume **db_data** which is stored in the docker managed portion of the host's file system. All database's data will be stored here ensuring that they persist even if the container is stopped or deleted.
 
 Environment directive is used to set environment variables in the db service. Here we're setting the *root password for mysql, the database name, the database user, and user password*. That's **(MYSQL_ROOT_PASSWORD, MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD)**. These environment variables are used to configure the MYSQL server inside the docker container.
 
@@ -68,6 +68,7 @@ After loging into mysql database, we can run the following cmds
 SHOW DATABASES
 ---
 
+**CONNECT TO DATABASE**
 Next we'll test our connection to the MYSQL DATABASE. For this, we'll create a nwe file called database_connection.php. In this file, we'll add codes specificly designed to test the connection to our MYSQL database.
 
 <!DOCTYPE html>
@@ -78,16 +79,18 @@ Next we'll test our connection to the MYSQL DATABASE. For this, we'll create a n
 </head>
 
 <body>
-    <h1>Welcome To Wisdom PHP Application Deployment Using Docker</h1>
+    <h1>Welcome To Database Connection</h1>
     <p>
         <?php
-            $servername ='mysql_con'; // container's name
-            $username ='php_user';   // MYSQL_USER
-            $password ='admin123';  // MYSQL_PASSWORD
-            $dbname ='testdb';     // MYSQL_DATABASE
-            $connection = new mysqli($servername, $username, $password, $dbname);            
+            $servername='mysql';
+            $username= 'your_name';
+            $password= 'your_pw';
+            $dbname= 'your_db';
+            $connection = new mysqli($servername, $username, $password,
+$dbname);
+
             if ($connection->connect_error) {
-                die('Connection failed'. $connection->connect_error);
+                die('Connection failed: '. $connection->connect_error);
             }
             echo 'Connected Successfully!';
         ?>
@@ -95,6 +98,7 @@ Next we'll test our connection to the MYSQL DATABASE. For this, we'll create a n
 </body>
 
 </html>
+
 
 
 Once the file is ready we'll run it.
