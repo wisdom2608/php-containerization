@@ -1,0 +1,55 @@
+version: '3.8'
+services:
+  php-image:
+    build: .
+    networks:
+      - mainnet 
+    ports:
+      - ${WEBSERVER_PORT}
+    volumes:
+      - ${WEBSERVER_VOLUME}
+    container_name: ${WEBSERVER_NAME}
+    depends_on: # This means mysql and phpmyadmin will be up and runing before php 
+      - mysql 
+      - phpmyadmin
+  mysql:
+    image: mysql:latest
+    restart: always
+    ports:
+      - ${MYSQL_PORTS}
+    networks:
+      - mainnet
+    volumes:
+      - ${MYSQL_VOLUMES}
+    environment:
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    container_name: ${MYSQL_CONTAINER_NAME}    
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    depends_on: # This means mysql will be up and runing before phpmyadmin
+      - mysql
+    networks:
+      - mainnet
+    ports:
+      - ${PHPMYADMIN_PORTS}
+    environment:  
+      PMA_HOST: mysql
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+
+      PMA_PORTS: ${PMA_PORTS}
+    container_name: ${PHP_CONTAINER_NAME}
+  
+networks: # Network allows containers to foward traffic to each other.
+  mainnet:
+    driver: bridge # Setting the networks values to bridge allows containers on the same network forwaard traffic between each container. 
+
+volumes:
+  db_data:
+    
