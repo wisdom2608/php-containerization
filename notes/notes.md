@@ -113,6 +113,8 @@ If you need to scale the PHP service to handle more traffic, you can scale the n
 ```bash
 docker-compose up -d --scale php=3
 ```
+Pass the environment variable file to docker-compose.yml file
+
 ```bash
 docker-compose --env-file <name_of_env_file> up -d
 ```
