@@ -3,6 +3,7 @@ To Dockerize a php-based application successufully, we neet the following resour
 - **PHP IMAGE**
 - **DATABASE**
 - **DATABASE ADMINISTRATION SOFTWARE**
+
 First, create a new directory for the application: In the folder add a docker-compose.yml file. In the docker-compose file, we add two services- the web(php) and db(database).
 
 The web service will use the php-apache image. This image gives us an apache server that's already setup with php. We can find this image in a dockerhub where all images are stored. On the php page, we can see many tags for php. One of them is php-apache. This image combines php runtime with apache server. With this combined we can easily build our docker-compose file for the web container.
@@ -24,7 +25,7 @@ Environment directive is used to set environment variables in the db service. He
 PhpMyAdmin: We need to set up a phpmyadmin on our docker-compose file. This let us manage our database more easily.
 
 
-Finally we'll define a volume section (as a service) of our docker-compose file. We'll sepacify the volume name "db". in docker, volumes are used for data persistence and sharing among containers. There are easy to backup or migrated and be managed with docker commands. By stating db, we will creating a volume named db. This volume will be linked to our db service ensuring that our database data will be stored on our local machine and lost if our database container is removed. Once our docker-conpose.yml file is ready, we will run our containers
+Finally we'll define a volume section (as a service) of our docker-compose file. We'll sepacify the volume name "db". In docker, volumes are used for data persistence and sharing among containers. There are easy to backup or migrated and be managed with docker commands. By stating db, we will creating a volume named db. This volume will be linked to our db service ensuring that our database data will be stored on our local machine and lost if our database container is removed. Once our docker-conpose.yml file is ready, we will run our containers
 
 ```bash
 *docker-compose up -d --build*
