@@ -1,70 +1,128 @@
-# Git
-.git
-.gitignore
-.gitattributes
+# ==========================================
+# PHP / Composer
+# ==========================================
 
-# Environment / secrets
-.env
-.env.*
-!.env.example
-example.*
+/vendor/
+composer.phar
 
-# Dependencies
-vendor/
-node_modules/
-
-# Logs
-*.log
-logs/
-log/
-
-# Cache / temporary files
-tmp/
-temp/
-cache/
-*.tmp
-*.temp
-
-# PHPUnit / testing
-.phpunit.result.cache
+# Composer cache
 .phpunit.cache/
-coverage/
-tests/
+.phpunit.result.cache
 
-# IDE / editors
+# ==========================================
+# Environment & Secrets
+# ==========================================
+
+.env
+.env.local
+.env.*.local
+
+# Keep an example configuration
+!.env.example
+
+# ==========================================
+# Logs
+# ==========================================
+
+*.log
+/logs/
+/storage/logs/
+
+# ==========================================
+# Cache / Temporary Files
+# ==========================================
+
+/cache/
+/tmp/
+/temp/
+/storage/cache/
+/bootstrap/cache/*
+
+# ==========================================
+# Testing / Coverage
+# ==========================================
+
+/coverage/
+/.phpunit.cache/
+clover.xml
+coverage.xml
+
+# ==========================================
+# IDE / Editors
+# ==========================================
+
 .vscode/
 .idea/
 *.swp
 *.swo
+*.swn
+*~
 
-# OS files
+# ==========================================
+# Operating System
+# ==========================================
+
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
 Thumbs.db
+Desktop.ini
 
-# Documentation
-README.md
-README
-docs/
+# ==========================================
+# Docker
+# ==========================================
 
-# Docker files
-Dockerfile
-Dockerfile*
-docker-compose*.yml
-.dockerignore
+# Local Docker environment files
+docker-compose.override.yml
+docker-compose.local.yml
 
-# CI/CD
-.github/
-.gitlab-ci.yml
-Jenkinsfile
+# Docker volumes
+/docker-volumes/
 
-# Local development
-docker/
-*.local
+# ==========================================
+# Node.js / Frontend
+# ==========================================
 
-# PHP configuration generated locally
-php.ini
+/node_modules/
+/npm-debug.log*
+/yarn-debug.log*
+/yarn-error.log*
+/pnpm-debug.log*
 
-# Backup files
+# Build output
+/dist/
+/build/
+
+# ==========================================
+# Application Generated Files
+# ==========================================
+
+/uploads/
+/storage/uploads/
+
+# ==========================================
+# Backup Files
+# ==========================================
+
 *.bak
 *.backup
-*~
+*.old
+*.orig
+
+# ==========================================
+# Local Database Files
+# ==========================================
+
+*.sqlite
+*.sqlite3
+*.db
+
+# ==========================================
+# CI/CD Local Files
+# ==========================================
+
+/.trivy/
+/scan-results/
+trivy-report.*
